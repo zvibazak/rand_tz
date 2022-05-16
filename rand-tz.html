@@ -1,0 +1,44 @@
+<head> 
+    <style>
+        h1 {
+        text-align: center;
+        color: #4CAF50;
+        }
+
+    .button {        
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;        
+      }
+    </style>
+</head>
+
+<body>
+
+<script>
+function get_last_digit_israeli_id_number(id) {
+    //base on: https://www.upnext.co.il/articles/israeli-id-numer-validation/	    
+    remainder = Array.from(id, Number).reduce((counter, digit, i) => {
+        const step = digit * ((i % 2) + 1);
+        return counter + (step > 9 ? step - 9 : step);
+    }) % 10;
+    return 10 - remainder;
+}
+
+function get_random_israeli_id_number(){
+    //get random 8 digits number
+    rand = Math.random().toString().slice(2,10);    
+    last_digit = get_last_digit_israeli_id_number(rand);
+    return rand+last_digit;
+}
+document.body.innerHTML = "<h1>Random id is: " + get_random_israeli_id_number() + "</h1>"
+</script>
+<div style="text-align:center">
+    <button onClick="window.location.reload();" class="button">Get another one...</button>
+</div>
+</body>
